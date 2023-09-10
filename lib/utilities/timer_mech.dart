@@ -2,44 +2,63 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class TimerMechanism extends StatefulWidget {
-  const TimerMechanism({super.key});
+  const TimerMechanism({Key? key}) : super(key: key);
 
   @override
   State<TimerMechanism> createState() => _TimerMechanismState();
 }
 
 class _TimerMechanismState extends State<TimerMechanism> {
-  // variables
-  int timeLeft = 5;
-  // timer method
+  // Variables
+  int timeLeft = 300; // 5 minutes = 300 seconds
+  bool isCountingDown = false;
+  late Timer _timer;
+
+  // Timer method
   void _startCountDown() {
-    Timer.periodic(const Duration(minutes: 1), (timer) {
-      if (timeLeft > 0) {
-        setState(() {
-          timeLeft--;
-        });
-      } else {
-        timer.cancel();
-      }
-    });
+    if (!isCountingDown) {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        if (timeLeft > 0) {
+          setState(() {
+            timeLeft--;
+          });
+        } else {
+          timer.cancel();
+          setState(() {
+            isCountingDown = false;
+          });
+        }
+      });
+      setState(() {
+        isCountingDown = true;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    if (isCountingDown) {
+      _timer.cancel();
+    }
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              timeLeft == 0 ? 'DONE' : timeLeft.toString(),
+              isCountingDown ? timeLeft.toString() : 'DONE',
               style: TextStyle(fontSize: 50),
             ),
             MaterialButton(
               onPressed: _startCountDown,
               color: Colors.deepPurple,
               child: Text(
-                'START',
+                isCountingDown ? 'PAUSE' : 'START',
                 style: TextStyle(color: Colors.white),
               ),
             ),

@@ -26,7 +26,7 @@ class _HabitHomeState extends State<HabitHome> {
       db.createDefaultData();
     } else {
       // load data from database
-      db.laodData();
+      db.loadData();
     }
     // update database
     db.updateDatabase();
