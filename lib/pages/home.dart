@@ -100,6 +100,7 @@
 // Old Code
 
 import 'package:flutter/material.dart';
+import 'package:friend/tabs/habit.dart';
 import '../tabs/todo.dart';
 
 class HomePage extends StatelessWidget {
@@ -138,7 +139,12 @@ class HomePage extends StatelessWidget {
             Expanded(
               child: TabBarView(
                 children: [
-                  TodoHome(),
+                  Center(
+                    child: TodoHome(),
+                  ),
+                  Center(
+                    child: HabitHome(),
+                  )
                 ],
               ),
             ),

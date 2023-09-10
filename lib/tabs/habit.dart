@@ -8,14 +8,14 @@ import 'package:friend/utilities/my_fab.dart';
 import 'package:friend/utilities/my_alert_box.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HabitHome extends StatefulWidget {
+  const HabitHome({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HabitHome> createState() => _HabitHomeState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HabitHomeState extends State<HabitHome> {
   HabitDatabase db = HabitDatabase();
   final _myBox = Hive.box("mybox");
 
